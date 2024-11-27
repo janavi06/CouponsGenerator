@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Token Generator";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Token Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: #f6f4d2;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 15px;
+            background: #118ab2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #118ab2;
+            }
+
+        .token-display {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            background: #d4edda;
+            color: #000000;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+
+        .reset-button {
+            background-color: #ef476f;
+            margin-top: 10px;
+        }
+
+            .reset-button:hover {
+                background-color: #ef476f;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TOKEN GENERATOR</h1>
+        <form method="post" action="/Token/Generate">
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" placeholder="Enter your name" value="@ViewBag.CustomerName" required />
+
+            <label for="serviceType">Service Type:</label>
+            <input type="text" id="serviceType" name="serviceType" placeholder="e.g., Deposit, Withdrawal" value="@ViewBag.ServiceType" required />
+
+            <button type="submit">Generate Token</button>
+        </form>
+
+        @if (ViewBag.TokenNumber != null)
+        {
+            <div class="token-display">
+                <p><strong>Token Number:</strong> @ViewBag.TokenNumber</p>
+                <p><strong>Customer Name:</strong> @ViewBag.CustomerName</p>
+                <p><strong>Service Type:</strong> @ViewBag.ServiceType</p>
+            </div>
+
+            <form method="post" action="/Token/Reset">
+                <button type="submit" class="reset-button">Reset</button>
+            </form>
+        }
+    </div>
+</body>
+</html>
+
